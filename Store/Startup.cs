@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shop.Data;
+using Shop.ModelMapper;
+using Shop.Services;
 
 namespace Store
 {
@@ -21,6 +23,16 @@ namespace Store
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            // Add services to DI
+            services.AddHttpClient<IPricingService, PricingService>();
+            services.AddHttpClient<IProductService, ProductService>();
+            services.AddTransient<IPackageMapper, PackageMapper>();
+
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
