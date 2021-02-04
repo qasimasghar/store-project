@@ -1,16 +1,15 @@
-import * as React from 'react';
-import { Route } from 'react-router';
-import Layout from './components/Layout';
-import Home from './components/Home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
-
-import './custom.css'
+import * as React from "react";
+import { Route } from "react-router";
+import Layout from "./components/Layout";
+import PackageItem from "./components/PackageItem";
+import PackageItemList from "./components/PackageItemList";
+import Basket from "./components/Basket";
+import "./custom.css";
 
 export default () => (
     <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
+        <Route exact path="/" component={PackageItemList} />
+        <Route exact path="/package/:id" component={PackageItem} />
+        <Route exact path="/basket" component={Basket} />
     </Layout>
 );
