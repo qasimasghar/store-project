@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Shop.BindingModels;
@@ -19,17 +20,19 @@ namespace Shop.ModelMapper
 
         public async Task<PackageBindingModel> ModelToBindingModel(Package package, string currency)
         {
+            var price = await _pricingService.ConvertCurrency("USD", currency, package.UsdPrice);
+
             return new PackageBindingModel
             {
                 Id = package.Id,
                 Name = package.Name,
                 Description = package.Description,
                 Products = package.Products.Split(','),
-                Price = await _pricingService.ConvertCurrency("USD", currency, package.UsdPrice)
+                Price = Math.Round(price / 100, 2)
             };
         }
 
-        public async Task<Package> BindingModelToModel(PackageBindingModel packageBindingModel, string currency)
+        public Package BindingModelToModel(PackageBindingModel packageBindingModel)
         {
             return new Package
             {

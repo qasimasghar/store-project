@@ -3,11 +3,11 @@ using Shop.Data;
 
 namespace Shop.Controllers
 {
-    public abstract class BaseController : Controller
+    public abstract class Controller : ControllerBase
     {
         protected ApplicationDbContext DbContext;
 
-        protected BaseController(ApplicationDbContext dbContext)
+        protected Controller(ApplicationDbContext dbContext)
         {
             DbContext = dbContext;
         }

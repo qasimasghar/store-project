@@ -8,6 +8,6 @@ namespace Shop.ModelMapper
     {
         Task<PackageBindingModel> ModelToBindingModel(Package package, string currency);
 
-        Task<Package> BindingModelToModel(PackageBindingModel packageBindingModel, string currency);
+        Package BindingModelToModel(PackageBindingModel packageBindingModel);
     }
 }
